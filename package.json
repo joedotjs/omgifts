@@ -2,7 +2,9 @@
     "name": "omgifts",
     "version": "1.0.0",
     "main": "index.js",
-    "start": "webpack -w & http-server ./",
+    "scripts": {
+        "start": "webpack -w & http-server ./"
+    },
     "dependencies": {
         "react": "^15.4.1",
         "react-dom": "^15.4.1",
