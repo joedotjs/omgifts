@@ -1,38 +1,26 @@
 import React, {Component} from 'react';
-import Budget from '../components/Budget';
-import store from '../store';
-import {setBudget} from '../store/actions/budget-actions';
+import {Link} from 'react-router';
 
-export default class extends Component {
-
-  constructor() {
-    super();
-    this.state = store.getState();
-    this.increaseBudgetBy100 = this.increaseBudgetBy100.bind(this);
-  }
-
-  componentDidMount() {
-    this.unsubscribe = store.subscribe(() => {
-      this.setState(store.getState());
-    });
-  }
-
-  increaseBudgetBy100() {
-    const newBudget = this.state.budget + 100;
-    store.dispatch(setBudget(newBudget));
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
+class AppContainer extends Component {
   render() {
-      return (
-        <div>
-          <Budget value={this.state.budget} />
-          <button onClick={this.increaseBudgetBy100}>Increase</button>
-        </div>
-      );
+    return (
+      <main id="omgifts">
+        <h1>OMGifts!</h1>
+        <nav>
+          <div>
+            <Link to="/budget">Manage Budget</Link>
+          </div>
+          <div>
+            <Link to="/recipients">Manage Recipients</Link>
+          </div>
+          <div>
+            <Link to="/gifts">Manage Gifts</Link>
+          </div>
+        </nav>
+        {this.props.children && React.cloneElement(this.props.children)}
+      </main>
+    );
   }
-
 }
+
+export default AppContainer;

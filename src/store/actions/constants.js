@@ -1,2 +1,7 @@
 export const SET_BUDGET = 'SET_BUDGET';
-export const INCREMENT = 'INCREMENT';
+
+export const ADD_RECIPIENT = 'ADD_RECIPIENT';
+export const REMOVE_RECIPIENT = 'REMOVE_RECIPIENT';
+export const UPDATE_GIFT = 'UPDATE_GIFT';
+export const REMOVE_GIFT = 'REMOVE_GIFT';
+export const SET_GIFT_PRICE = 'SET_GIFT_PRICE';
