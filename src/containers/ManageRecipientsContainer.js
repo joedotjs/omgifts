@@ -1,44 +1,23 @@
 import React, {Component} from 'react';
-
-import store from '../store';
 import ManageRecipients from '../components/ManageRecipients';
-
 import {addRecipient, removeRecipient} from '../store/actions/recipient-gift-actions';
+import {connect} from 'react-redux';
 
-class ManageRecipientsContainer extends Component {
+const mapStateToProps = state => {
+  return {
+    recipients: state.recipientGifts.map(entry => entry.recipient)
+  };
+};
 
-  constructor() {
-    super();
-    this.state = store.getState();
-    this.addNewRecipient = this.addNewRecipient.bind(this);
-    this.removeRecipient = this.removeRecipient.bind(this);
-  }
+const mapDispatchToProps = dispatch => {
+  return {
+    addNewRecipient(recipientName) {
+      dispatch(addRecipient(recipientName));
+    },
+    removeRecipient(recipientName) {
+      dispatch(removeRecipient(recipientName))
+    }
+  };
+};
 
-  componentDidMount() {
-    this.unsubscribe = store.subscribe(() => {
-      this.setState(store.getState());
-    });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  addNewRecipient(recipientName) {
-    store.dispatch(addRecipient(recipientName));
-  }
-
-  removeRecipient(recipientName) {
-    store.dispatch(removeRecipient(recipientName))
-  }
-
-  render() {
-    return <ManageRecipients
-      recipients={this.state.recipientGifts.map(entry => entry.recipient)}
-      addNewRecipient={this.addNewRecipient}
-      removeRecipient={this.removeRecipient}
-    />;
-  }
-}
-
-export default ManageRecipientsContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(ManageRecipients);
